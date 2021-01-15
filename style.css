@@ -1,0 +1,167 @@
+/***** PAGE *****/
+
+html {
+	background: #fff;
+	color: #000;	
+	text-align: center;
+	padding: 75px 5px;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: rubik, sans-serif;
+}
+
+/***** HEADING *****/
+
+h1 {
+	padding: 0;
+	margin: 0;
+	font-family: 'roboto slab', georgia, serif;
+}
+
+/***** ABOUT *****/
+
+#about a {
+	color: #E5007E;
+	text-decoration: none;
+}
+
+#about a:hover {
+	border-bottom: 1px dotted #E5007E;
+}
+
+/***** CONTROLS *****/
+
+select {
+	font-family: rubik, sans-serif;
+	max-width: 100%;
+}
+
+#controls {
+	display: inline-block;
+	margin: 15px auto 25px;
+}
+
+.label {
+}
+
+/***** CHARTS *****/
+
+.film {
+	text-align: center;
+	margin: 1px 1px 2px;
+	cursor: default;
+}
+
+.film:hover {
+	background: #ddd;
+}
+
+.row table {
+	width: 100%;
+	margin: 0 auto 40px;
+}
+
+.row td {
+	background: #005EB5;
+}
+
+.row td:hover {
+	background: #209EFF;
+}
+
+.row td {
+	height: 100px;
+	margin: 0;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #fff;		
+}
+
+.row a {
+	height: 100px;
+	display: block;
+}
+
+td.name {
+	width: 150px;
+	text-align: right;
+	padding-right: 5px;
+	background: #fff;
+}
+
+.row table,
+.row td,
+.row a,
+.bar {
+	border-spacing: 0;
+	vertical-align: bottom;
+	padding: 0;	
+}
+
+.row table {
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+}
+
+.bar {
+	background: #ddd;
+	font-size: 10px;
+	display: block;
+	margin: 0;	
+}
+
+/***** TOOLTIP *****/
+  
+#tt {
+	background: rgba(0, 0, 0, 1);
+	text-align: center;
+	color: #fff;
+	height: 225px;
+	width: 250px;
+	top: 0;
+	left: 0;
+	position: absolute;
+	border: 2px solid #fff;
+	border-radius: 10px;
+	font-size: 13px;
+}
+
+#tt * {
+	margin: 0;
+	padding: 0;
+}
+
+#tooltip_thumb {
+	width: 80px;
+	height: 120px;
+	border: 2px solid #fff;
+	margin-bottom: 3px;
+}
+
+#tooltip_title {
+	margin: 15px 5px 5px 5px;
+	padding: 0;
+	line-height: 1.1em;
+	font-style: italic;
+}
+
+#tooltip_stats th {
+	text-align: right;
+	padding: 0 1px;
+	font-weight: normal;
+}
+
+#tooltip_stats td {
+	text-align: left;
+	padding: 0 1px;
+}
+
+#tooltip_stats .second {
+	padding-left: 20px;
+}
+
+#tooltip_stats table {
+	margin: 0 auto 0;
+}
