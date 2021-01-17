@@ -47,7 +47,7 @@
 						<option value="80s">Franchises that started in the 1980s</option>
 					</select>
 				<p>
-				<p>
+				<p id="franchise_order_controls">
 					<span class="label">
 						Franchise Order:
 					</span>
@@ -91,6 +91,10 @@
 		<script>
 		
 			var isTouchDevice = ('ontouchstart' in document.documentElement);
+			
+			if (isTouchDevice) {
+				d3.select('#franchise_order_controls').style('display', 'none');
+			}
 		
 			////////////////// CONTROLS //////////////////
 			
