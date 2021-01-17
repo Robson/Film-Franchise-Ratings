@@ -90,6 +90,8 @@
 		</div>
 		<script>
 		
+			var isTouchDevice = ('ontouchstart' in document.documentElement);
+		
 			////////////////// CONTROLS //////////////////
 			
 			var selectedFilter = 'all';
@@ -116,6 +118,10 @@
 
 			var tooltip = d3.select('#tt');
 			var tt = d3.select('#tt');
+			var displayedFranchise = -1;
+			var displayedFilm = -1;
+			
+			tt.on('mousedown', function() { tt.style('display', 'none'); });
 			
 			function setTooltipFranchise(franchise) {
 				d3.select('#tooltip_thumb').style('display', 'none');
@@ -165,23 +171,30 @@
 				row.append('td').html(film.Rating.toFixed(1));				
 				row.append('th').html('IMDb Votes:').attr('class', 'second');
 				row.append('td').html(Math.round(film.Votes / 1000, 0) + 'K');								
-			}			
+			}
+			
+			function setTooltip(i) {
+				var franchise = d3.selectAll('.ttt')[0][i].attributes['data-franchise'].value;
+				var film = d3.selectAll('.ttt')[0][i].attributes['data-film'];
+				if (film == undefined) {
+					setTooltipFranchise(franchise);
+				} else {
+					setTooltipFilm(franchise, film.value);
+				}			
+			}
 
 			function createTooltipTriggers() {
 				d3.selectAll('.ttt')
 					.on("mouseover", function(d, i) {
-						var franchise = d3.selectAll('.ttt')[0][i].attributes['data-franchise'].value;
-						var film = d3.selectAll('.ttt')[0][i].attributes['data-film'];
-						if (film == undefined) {
-							setTooltipFranchise(franchise);
-						} else {
-							setTooltipFilm(franchise, film.value);
-						}
+						setTooltip(i);
 					})
 					.on("mouseout", function() {
 						tt.style('display', 'none');
-					})
-					.on("mousemove", function() {
+					})		
+					.on("mousemove", function(d, i) {
+						if (isTouchDevice) {
+							setTooltip(i);
+						}
 						var x = d3.event.pageX - 125;
 						x = Math.max(x, 10);
 						x = Math.min(x, document.body.clientWidth - 250);
@@ -233,7 +246,7 @@
 				d3.selectAll('.row *').remove();
 				var charts = d3.select('.row');				
 				sortedFilms = data.slice(0);
-				switch (selectedOrder) {
+				switch (d3.select("#controls_order").node().value) {
 					case 'alphabetical':
 						sortedFilms = sortedFilms.sort((a, b) => a.Name > b.Name);
 						break;						
@@ -276,14 +289,17 @@
 					var tr = table.append('tr');
 					for(var j = 0; j < franchise.Films.length; j++) {
 						var film = franchise.Films[j];
-						tr
+						var row = tr
 							.append('td')
 							.attr('class', 'ttt')
 							.attr('data-franchise', i)
 							.attr('data-film', j)
-							.append('a')
-							.attr('href', 'https://imdb.com/title/' + film.Id)
-							.attr('target', '_blank')
+							.append('a');
+						if (!isTouchDevice)
+							var row = row								
+								.attr('href', 'https://imdb.com/title/' + film.Id)
+								.attr('target', '_blank');
+						row
 							.append('span')
 							.attr('class', 'bar')
 							.style('height', (selectedRating == 'imdb' ? (10 - film.Rating) * 10 : 100 - film.Metascore || 100) + '%');
