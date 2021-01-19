@@ -243,10 +243,13 @@
 				}
 			}
 			
-			function showCharts() {			
+			function showCharts() {
+				console.log("showCharts()");
 				d3.selectAll('.row *').remove();
 				var charts = d3.select('.row');				
 				sortedFilms = data.slice(0);
+				console.log(sortedFilms);
+				console.log('{' + d3.select("#controls_order").node().value + '}');
 				switch (d3.select("#controls_order").node().value) {
 					case 'alphabetical':
 						sortedFilms.sort(function(a, b) { return a.Name > b.Name; });
@@ -281,9 +284,11 @@
 					case 'amount':
 						sortedFilms = sortedFilms.sort(function(a, b) { return a.Films.length < b.Films.length; });
 						break;
-				}				
+				}
+				console.log(sortedFilms);
 				for(var i = 0; i < sortedFilms.length; i++) {
 					var franchise = sortedFilms[i];
+					console.log(franchise.Name);
 					var div = charts.append('div').attr('class', 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3');
 					div.append('p').attr('class', 'ttt film').attr('data-franchise', i).html(franchise.Name);
 					var table = div.append('table');
