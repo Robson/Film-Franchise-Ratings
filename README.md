@@ -13,9 +13,9 @@ http://robson.plus/film-franchise-ratings/
 This is built using:
  * HTML
  * CSS
-   * Bootstrap
+   * <a href="https://github.com/twbs/bootstrap">Bootstrap</a>
  * JavaScript
-   * D3.js
+   * <a href="https://github.com/d3/d3">D3.js</a>
      * <a href="https://github.com/harrystevens/d3-regression">d3-regression</a>
 
 <a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Frobson.plus%2Ffilm-franchise-ratings%2F"><img src="https://www.w3.org/Icons/valid-html401-blue" alt="Valid HTML" /></a>
