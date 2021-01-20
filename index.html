@@ -244,51 +244,43 @@
 			}
 			
 			function showCharts() {
-				console.log("showCharts()");
 				d3.selectAll('.row *').remove();
 				var charts = d3.select('.row');				
 				sortedFilms = data.slice(0);
-				console.log(sortedFilms);
-				console.log('{' + d3.select("#controls_order").node().value + '}');
-				switch (d3.select("#controls_order").node().value) {
-					case 'alphabetical':
-						sortedFilms = sortedFilms.sort(function(a, b) { return a.Name > b.Name; });
-						break;					
+				switch (d3.select("#controls_order").node().value) {			
 					case 'imdb_rating_first_film':
-						sortedFilms = sortedFilms.sort(function(a, b) { return a.Films[0].Rating < b.Films[0].Rating; });
+						sortedFilms = sortedFilms.sort(function(a, b) { return b.Films[0].Rating - a.Films[0].Rating; });
 						break;
 					case 'imdb_votes_first_film':
-						sortedFilms = sortedFilms.sort(function(a, b) { return a.Films[0].Votes < b.Films[0].Votes; });
+						sortedFilms = sortedFilms.sort(function(a, b) { return b.Films[0].Votes - a.Films[0].Votes; });
 						break;						
 					case 'imdb_rating_average_film':
-						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(a.Films, 'imdb_average') < getFranchiseStat(b.Films, 'imdb_average'); });
+						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_average') - getFranchiseStat(a.Films, 'imdb_average'); });
 						break;
 					case 'imdb_votes_average_film':
-						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(a.Films, 'imdb_average_votes') < getFranchiseStat(b.Films, 'imdb_average_votes'); });
+						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_average_votes') - getFranchiseStat(a.Films, 'imdb_average_votes'); });
 						break;						
 					case 'metacritic_rating_first_film':
-						sortedFilms = sortedFilms.sort(function(a, b) { return +a.Films[0].Metascore < +b.Films[0].Metascore; });
+						sortedFilms = sortedFilms.sort(function(a, b) { return +b.Films[0].Metascore - +a.Films[0].Metascore; });
 						break;						
 					case 'metacritic_rating_average_film':
-						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(a.Films, 'metacritic_average') < getFranchiseStat(b.Films, 'metacritic_average'); });
+						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'metacritic_average') - getFranchiseStat(a.Films, 'metacritic_average'); });
 						break;
 					case 'release_date':
-						sortedFilms = sortedFilms.sort(function(a, b) { return a.Films[0].Year > b.Films[0].Year; });
+						sortedFilms = sortedFilms.sort(function(a, b) { return a.Films[0].Year - b.Films[0].Year; });
 						break;						
 					case 'imdb_trend':
-						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(a.Films, 'imdb_trend') < getFranchiseStat(b.Films, 'imdb_trend'); });
+						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_trend') - getFranchiseStat(a.Films, 'imdb_trend'); });
 						break;						
 					case 'metacritic_trend':
-						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(a.Films, 'metacritic_trend') < getFranchiseStat(b.Films, 'metacritic_trend'); });
+						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'metacritic_trend') - getFranchiseStat(a.Films, 'metacritic_trend'); });
 						break;
 					case 'amount':
 						sortedFilms = sortedFilms.sort(function(a, b) { return b.Films.length - a.Films.length; });
 						break;
 				}
-				console.log(sortedFilms);
 				for(var i = 0; i < sortedFilms.length; i++) {
 					var franchise = sortedFilms[i];
-					console.log(franchise.Name);
 					var div = charts.append('div').attr('class', 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-3');
 					div.append('p').attr('class', 'ttt film').attr('data-franchise', i).html(franchise.Name);
 					var table = div.append('table');
