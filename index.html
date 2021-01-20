@@ -44,7 +44,12 @@
 					</span>
 					<select id="controls_filter">
 						<option value="all">All franchises</option>
-						<option value="80s">Franchises that started in the 1980s</option>
+						<option value="start1960s">Franchises that started in the 1960s</option>
+						<option value="start1970s">Franchises that started in the 1970s</option>
+						<option value="start1980s">Franchises that started in the 1980s</option>
+						<option value="start1990s">Franchises that started in the 1990s</option>
+						<option value="start2000s">Franchises that started in the 2000s</option>
+						<option value="start2010s">Franchises that started in the 2010s</option>
 					</select>
 				<p>
 				<p id="franchise_order_controls">
@@ -247,7 +252,27 @@
 				d3.selectAll('.row *').remove();
 				var charts = d3.select('.row');				
 				sortedFilms = data.slice(0);
-				switch (d3.select("#controls_order").node().value) {			
+				switch (selectedFilter) {
+					case 'start1960s':
+						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1960 && a.Films[0].Year < 1970);
+						break;
+					case 'start1970s':
+						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1970 && a.Films[0].Year < 1980);
+						break;
+					case 'start1980s':
+						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1980 && a.Films[0].Year < 1990);
+						break;
+					case 'start1990s':
+						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1990 && a.Films[0].Year < 2000);
+						break;
+					case 'start2000s':
+						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 2000 && a.Films[0].Year < 2010);
+						break;
+					case 'start2010s':
+						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 2010 && a.Films[0].Year < 2020);
+						break;						
+				}
+				switch (selectedOrder) {			
 					case 'imdb_rating_first_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return b.Films[0].Rating - a.Films[0].Rating; });
 						break;
