@@ -38,7 +38,7 @@
 				<br/>Want to suggest a franchise or improve this page? <a href="https://github.com/Robson/Film-Franchise-Ratings">Here's the code</a>.</p>
 			</div>
 			<div id="controls">
-				<p style="display: none">
+				<p>
 					<span class="label">
 						Filter:
 					</span>
@@ -253,6 +253,12 @@
 				var charts = d3.select('.row');				
 				sortedFilms = data.slice(0);
 				switch (selectedFilter) {
+					case 'start1940s':
+						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1940 && a.Films[0].Year < 1950);
+						break;				
+					case 'start1950s':
+						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1950 && a.Films[0].Year < 1960);
+						break;
 					case 'start1960s':
 						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1960 && a.Films[0].Year < 1970);
 						break;
