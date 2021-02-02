@@ -8,9 +8,24 @@ An interactive webpage for exploring the ratings of popular film franchises.
 
 http://robson.plus/film-franchise-ratings/
 
+## Files
+
+### Everything in the GetImdbFilmFranchiseData folder
+
+This is the C# code that stores the franchises and gets all of the data from the IMDb. It writes that data to data.js
+
+### data.js
+
+All of the film franchise data. Film names, years, ratings, etc.
+
+### index.html + style.css
+
+The files for the interactive webpage.
+
 ## Technologies
 
 This is built using:
+ * C# (.NET Core)
  * HTML
  * CSS
    * <a href="https://github.com/twbs/bootstrap">Bootstrap</a>
