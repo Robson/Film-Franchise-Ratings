@@ -132,37 +132,40 @@
 			
 			function setTooltipFranchise(franchise) {
 				d3.select('#tooltip_thumb').style('display', 'none');
-				d3.select('#tooltip_title').html(sortedFilms[franchise].Name);
+				tt.classed('franchise', true);
+				tt.classed('film', false);
 				var films = sortedFilms[franchise].Films;
-				d3.selectAll('#tooltip_stats *').remove();
+				var info = films.length + ' films from ' + films[0].Year + ' to ' + films[films.length-1].Year;
+				d3.select('#tooltip_title').attr('class', 'title').html(sortedFilms[franchise].Name);				
+				d3.selectAll('#tooltip_stats *').remove();				
+				d3.select('#tooltip_stats').append('p').html(info);
+				d3.select('#tooltip_stats').append('p').attr('class', 'title').html('IMDb');
 				var table = d3.select('#tooltip_stats').append('table');
-				var row = table.append('tr');
-				row.append('th').html('Film Count:');
-				row.append('td').html(films.length);
 				row = table.append('tr');
-				row.append('th').html('Years:');
-				row.append('td').html(films[0].Year + '-' + films[films.length-1].Year);
-				row = table.append('tr');
-				row.append('th').html('IMDb Average Rating:');
+				row.append('th').html('Average Rating:');
 				row.append('td').html(getFranchiseStat(films, 'imdb_average').toFixed(1));
 				row = table.append('tr');
-				row.append('th').html('IMDb Average Votes:');
+				row.append('th').html('Average Votes:');
 				row.append('td').html((getFranchiseStat(films, 'imdb_average_votes') / 1000).toFixed(0) + 'K');	
 				row = table.append('tr');
-				row.append('th').html('IMDb Rating Trend:');
+				row.append('th').html('Rating Trend:');
 				var trend = getFranchiseStat(films, 'imdb_trend').toFixed(1);
-				row.append('td').html(trend > 0 ? '+' + trend : trend);
+				row.append('td').html(trend > 0 ? '+' + trend : trend);				
+				d3.select('#tooltip_stats').append('p').attr('class', 'title').html('Metacritic');
+				table = d3.select('#tooltip_stats').append('table');
 				row = table.append('tr');
-				row.append('th').html('Metacritic Average Rating:');
+				row.append('th').html('Average Rating:');
 				row.append('td').html(getFranchiseStat(films, 'metacritic_average').toFixed(0));				
 				row = table.append('tr');
-				row.append('th').html('Metacritic Rating Trend:');
+				row.append('th').html('Rating Trend:');
 				trend = getFranchiseStat(films, 'metacritic_trend').toFixed(1);
 				row.append('td').html(trend > 0 ? '+' + trend : trend);					
 			}
 			
 			function setTooltipFilm(franchise, filmIndex) {
 				d3.select('#tooltip_thumb').style('display', null);
+				tt.classed('franchise', false);
+				tt.classed('film', true);
 				var film = sortedFilms[franchise].Films[filmIndex];
 				d3.select('#tooltip_thumb').attr('src', film.Poster);
 				d3.select('#tooltip_title').html(film.Name);

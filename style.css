@@ -165,3 +165,18 @@ td.name {
 #tooltip_stats table {
 	margin: 0 auto 0;
 }
+
+#tt.franchise td,
+#tt.franchise th {
+	xwidth: 50%;
+}
+
+#tt.franchise .title {
+	margin-top: 8px;
+	font-weight: bold;
+}
+
+#tt.franchise #tooltip_title {
+	margin-top: 15px;
+}
+
