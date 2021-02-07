@@ -44,6 +44,7 @@
 					</span>
 					<select id="controls_filter">
 						<option value="all">All franchises</option>
+						<option value="recentfilm">Franchises with a film within the last decade</option>
 						<option value="start1960s">Franchises that started in the 1960s</option>
 						<option value="start1970s">Franchises that started in the 1970s</option>
 						<option value="start1980s">Franchises that started in the 1980s</option>
@@ -253,6 +254,9 @@
 				var charts = d3.select('.row');				
 				sortedFilms = data.slice(0);
 				switch (selectedFilter) {
+					case 'recentfilm':
+						sortedFilms = sortedFilms.filter(a => a.Films[a.Films.length - 1].Year > new Date(Date.now()).getFullYear() - 10);
+						break;
 					case 'start1940s':
 						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1940 && a.Films[0].Year < 1950);
 						break;				
