@@ -6,7 +6,7 @@ An interactive webpage for exploring the ratings of popular film franchises.
 
 ## Live Version
 
-http://robson.plus/film-franchise-ratings/
+https://robson.plus/film-franchise-ratings/
 
 ## Files
 
