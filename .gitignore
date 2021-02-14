@@ -6,6 +6,9 @@
 # API Keys
 key.txt
 
+# ScreenToGif projects
+*.stg
+
 # User-specific files
 *.rsuser
 *.suo
