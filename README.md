@@ -13,7 +13,7 @@
 
 ## Demo
 
-<img src="https://raw.githubusercontent.com/Robson/Film-Franchise-Ratings/master/Demo.gif" />
+![Demo](https://raw.githubusercontent.com/Robson/Film-Franchise-Ratings/master/Demo.gif)
 
 ## Explanation
 
@@ -27,13 +27,13 @@ https://robson.plus/film-franchise-ratings/
 
 The output for this project is designed for desktop and mobile.
 
-| Platform | Browser          | Version | Status  |
-| :------- | :--------------- | :------ | :------ |
-| Desktop  | Firefox          | 85      | Working |
-| Desktop  | Opera            | 74      | Working |
-| Desktop  | Chrome           | 88      | Working |
-| Desktop  | Edge             | 88      | Working |
-| Mobile   | Android: Chrome  | 85      | Working |
+| Platform | OS      | Browser          | Version | Status  |
+| :------- | :------ | :--------------- | :------ | :------ |
+| Desktop  | Windows | Firefox          | 85      | Working |
+| Desktop  | Windows | Opera            | 74      | Working |
+| Desktop  | Windows | Chrome           | 88      | Working |
+| Desktop  | Windows | Edge             | 88      | Working |
+| Mobile   | Android | Chrome           | 85      | Working |
 
 Last tested on 14th February 2021.
 
