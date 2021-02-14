@@ -166,11 +166,6 @@ td.name {
 	margin: 0 auto 0;
 }
 
-#tt.franchise td,
-#tt.franchise th {
-	xwidth: 50%;
-}
-
 #tt.franchise .title {
 	margin-top: 8px;
 	font-weight: bold;
