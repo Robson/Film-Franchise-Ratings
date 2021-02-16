@@ -52,7 +52,7 @@ This is the C# code that stores the franchises and gets all of the data from the
 
 ### data.js
 
-All of the film franchise data. Film names, years, ratings, etc. The Id is the IMDb Id for the film.
+All of the film franchise data. Film names, years, ratings, etc. The ID is the IMDb ID for the film.
 
 ### index.html + style.css
 
