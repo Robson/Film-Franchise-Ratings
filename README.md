@@ -7,7 +7,7 @@
  * [Live Version](#live-version)
  * [Compatibility](#compatibility)
  * [Testing](#testing) 
- * [Files](#files)
+ * [File Descriptions](#file-descriptions)
  * [Technologies](#technologies)
  * [Validation](#validation)
 
@@ -44,7 +44,7 @@ To run this on your computer:
  * Unzip anywhere.
  * Open *index.html* in your browser.
 
-## Files
+## File Descriptions
 
 ### Everything in the GetImdbFilmFranchiseData folder
 
