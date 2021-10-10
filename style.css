@@ -59,6 +59,11 @@ select {
 .row table {
 	width: 100%;
 	margin: 0 auto 40px;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	border-spacing: 0;
+	vertical-align: bottom;
+	padding: 0;	
 }
 
 .row td {
@@ -91,14 +96,6 @@ td.name {
 	border-spacing: 0;
 	vertical-align: bottom;
 	padding: 0;	
-}
-
-.row table {
-	border-top: 1px solid #000;
-	border-bottom: 1px solid #000;
-	border-spacing: 0;
-	vertical-align: bottom;
-	padding: 0;		
 }
 
 .bar {
