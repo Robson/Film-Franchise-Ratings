@@ -44,9 +44,6 @@ select {
 	margin: 15px auto 25px;
 }
 
-.label {
-}
-
 /***** CHARTS *****/
 
 .film {
@@ -66,17 +63,14 @@ select {
 
 .row td {
 	background: #005EB5;
-}
-
-.row td:hover {
-	background: #209EFF;
-}
-
-.row td {
 	height: 100px;
 	margin: 0;
 	border-left: 1px solid #fff;
 	border-right: 1px solid #fff;		
+}
+
+.row td:hover {
+	background: #209EFF;
 }
 
 .row a {
@@ -91,7 +85,6 @@ td.name {
 	background: #fff;
 }
 
-.row table,
 .row td,
 .row a,
 .bar {
@@ -103,6 +96,9 @@ td.name {
 .row table {
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
+	border-spacing: 0;
+	vertical-align: bottom;
+	padding: 0;		
 }
 
 .bar {
@@ -141,7 +137,7 @@ td.name {
 }
 
 #tooltip_title {
-	margin: 15px 5px 5px 5px;
+	margin: 15px 5px 5px;
 	padding: 0;
 	line-height: 1.1em;
 	font-style: italic;
@@ -163,7 +159,7 @@ td.name {
 }
 
 #tooltip_stats table {
-	margin: 0 auto 0;
+	margin: 0 auto;
 }
 
 #tt.franchise .title {
@@ -174,4 +170,3 @@ td.name {
 #tt.franchise #tooltip_title {
 	margin-top: 15px;
 }
-
