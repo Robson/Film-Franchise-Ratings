@@ -46,14 +46,22 @@ select {
 
 /***** CHARTS *****/
 
+.container p {
+	margin: 0;
+}
+
 .film {
 	text-align: center;
 	margin: 1px 1px 2px;
-	cursor: default;
+	cursor: pointer;
+	color: #E5007E;
+	height: auto;
+	text-decoration: none;
+	padding: 0;
 }
 
-.film:hover {
-	background: #ddd;
+a.film {
+	height: auto !important;
 }
 
 .row table {
