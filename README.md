@@ -40,9 +40,9 @@ Last tested on 14th February 2021.
 ## Testing
 
 To run this on your computer:
- * [Download the repository](https://github.com/Robson/Film-Franchise-Ratings/archive/master.zip).
- * Unzip anywhere.
- * Open *index.html* in your browser.
+ * [Download the repository](https://github.com/Robson/Film-Franchise-Ratings/archive/master.zip)
+ * Unzip anywhere
+ * Open *index.html* in your browser
 
 ## File Descriptions
 
