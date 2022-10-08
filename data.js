@@ -3999,3 +3999,9 @@ var data = [
   ]
 },
 ];
+
+function isUsed(a) {
+	return a;
+}
+
+isUsed(data);
