@@ -1,4 +1,4 @@
-﻿//--------------------------------------------------------------//
+//--------------------------------------------------------------//
 // Franchises.cs
 //
 // Written by Robson
@@ -28,7 +28,7 @@ namespace GetImdbFilmFranchiseData
                 { "Bourne", new List<string>() { "https://en.wikipedia.org/wiki/Bourne_(franchise)#Films", "tt0258463", "tt0372183", "tt0440963", "tt1194173", "tt4196776" } },
                 { "Cars", new List<string>() { "https://en.wikipedia.org/wiki/Cars_(franchise)#Film_series", "tt0317219", "tt1216475", "tt3606752" } },
                 { "Dark Knight", new List<string>() { "https://en.wikipedia.org/wiki/Batman_in_film#The_Dark_Knight_trilogy_(2005%E2%80%932012)", "tt0372784", "tt0468569", "tt1345836" } },
-                { "Despicable Me", new List<string>() { "https://en.wikipedia.org/wiki/Despicable_Me#Main_series", "tt1323594", "tt1690953", "tt2293640", "tt3469046" } },
+                { "Despicable Me", new List<string>() { "https://en.wikipedia.org/wiki/Despicable_Me#Main_series", "tt1323594", "tt1690953", "tt2293640", "tt3469046", "tt5113044" } },
                 { "Die Hard", new List<string>() { "https://en.wikipedia.org/wiki/Die_Hard_(film_series)#Films", "tt0095016", "tt0099423", "tt0112864", "tt0337978", "tt1606378" } },
                 { "Dollars", new List<string>() { "https://en.wikipedia.org/wiki/Dollars_Trilogy#Films", "tt0058461", "tt0060196", "tt0059578" } },
                 { "Exorcist", new List<string>() { "https://en.wikipedia.org/wiki/The_Exorcist_(franchise)#Film", "tt0070047", "tt0076009", "tt0099528", "tt0204313", "tt0449086" } },
@@ -52,7 +52,7 @@ namespace GetImdbFilmFranchiseData
                 { "Jurassic Park", new List<string>() { "https://en.wikipedia.org/wiki/Jurassic_Park#Films", "tt0107290", "tt0119567", "tt0163025", "tt0369610", "tt4881806" } },
                 { "Leprechaun", new List<string>() { "https://en.wikipedia.org/wiki/Leprechaun_(film_series)#Films", "tt0107387", "tt0110329", "tt0113636", "tt0116861", "tt0209095", "tt0339294", "tt2345613", "tt8155182" } },
                 { "Mad Max", new List<string>() { "https://en.wikipedia.org/wiki/Mad_Max#Films", "tt0079501", "tt0082694", "tt0089530", "tt1392190" } },
-                { "Marvel Cinematic Universe", new List<string>() { "https://en.wikipedia.org/wiki/List_of_Marvel_Cinematic_Universe_films#Films", "tt0371746", "tt0800080", "tt1228705", "tt0800369", "tt0458339", "tt0848228", "tt1300854", "tt1981115", "tt1843866", "tt2015381", "tt2395427", "tt0478970", "tt3498820", "tt1211837", "tt3896198", "tt2250912", "tt3501632", "tt1825683", "tt4154756", "tt5095030", "tt4154664", "tt4154796", "tt6320628", "tt3480822", "tt9376612", "tt9032400", "tt10872600" } },
+                { "Marvel Cinematic Universe", new List<string>() { "https://en.wikipedia.org/wiki/List_of_Marvel_Cinematic_Universe_films#Films", "tt0371746", "tt0800080", "tt1228705", "tt0800369", "tt0458339", "tt0848228", "tt1300854", "tt1981115", "tt1843866", "tt2015381", "tt2395427", "tt0478970", "tt3498820", "tt1211837", "tt3896198", "tt2250912", "tt3501632", "tt1825683", "tt4154756", "tt5095030", "tt4154664", "tt4154796", "tt6320628", "tt3480822", "tt9376612", "tt9032400", "tt10872600", "tt9419884", "tt10648342" } },
                 { "Matrix", new List<string>() { "https://en.wikipedia.org/wiki/The_Matrix_(franchise)#Films", "tt0133093", "tt0234215", "tt0242653", "tt10838180" } },
                 { "Men in Black", new List<string>() { "https://en.wikipedia.org/wiki/Men_in_Black_(film_series)#Films", "tt0119654", "tt0120912", "tt1409024", "tt2283336" } },
                 { "Middle Earth", new List<string>() { "https://en.wikipedia.org/wiki/Middle-earth_in_film#Warner_Bros.", "tt0120737", "tt0167261", "tt0167260", "tt0903624", "tt1170358", "tt2310332" } },
