@@ -33,10 +33,11 @@ namespace GetImdbFilmFranchiseData
                 { "Dollars", new List<string>() { "https://en.wikipedia.org/wiki/Dollars_Trilogy#Films", "tt0058461", "tt0060196", "tt0059578" } },
                 { "Exorcist", new List<string>() { "https://en.wikipedia.org/wiki/The_Exorcist_(franchise)#Film", "tt0070047", "tt0076009", "tt0099528", "tt0204313", "tt0449086" } },
                 { "Fast & Furious", new List<string>() { "https://en.wikipedia.org/wiki/Fast_%26_Furious#Films", "tt0232500", "tt0322259", "tt0463985", "tt1013752", "tt1596343", "tt1905041", "tt2820852", "tt4630562", "tt5433138" } },
+                { "Fantastic Beasts", new List<string>() { "https://en.wikipedia.org/wiki/Fantastic_Beasts_(film_series)#Films", "tt3183660", "tt4123430", "tt4123432" } },
                 { "Final Destination", new List<string>() { "https://en.wikipedia.org/wiki/Final_Destination#Films", "tt0195714", "tt0309593", "tt0414982", "tt1144884", "tt1622979" } },
                 { "Friday the 13th", new List<string>() { "https://en.wikipedia.org/wiki/Friday_the_13th_(franchise)#Films", "tt0080761", "tt0082418", "tt0083972", "tt0087298", "tt0089173", "tt0091080", "tt0095179", "tt0097388", "tt0107254", "tt0211443", "tt0329101", "tt0758746" } },
                 { "Godfather", new List<string>() { "https://en.wikipedia.org/wiki/The_Godfather_(film_series)#Film_series", "tt0068646", "tt0071562", "tt0099674" } },
-                { "Halloween", new List<string>() { "https://en.wikipedia.org/wiki/Halloween_(franchise)#Films", "tt0077651", "tt0082495", "tt0085636", "tt0095271", "tt0097474", "tt0113253", "tt0120694", "tt0220506", "tt0373883", "tt1311067", "tt1502407", "tt10665338" } },
+                { "Halloween", new List<string>() { "https://en.wikipedia.org/wiki/Halloween_(franchise)#Films", "tt0077651", "tt0082495", "tt0085636", "tt0095271", "tt0097474", "tt0113253", "tt0120694", "tt0220506", "tt0373883", "tt1311067", "tt1502407", "tt10665338", "tt10665342" } },
                 { "Hangover", new List<string>() { "https://en.wikipedia.org/wiki/The_Hangover_(film_series)#Films", "tt1119646", "tt1411697", "tt1951261" } },
                 { "Hannibal Lecter", new List<string>() { "https://en.wikipedia.org/wiki/Hannibal_Lecter_(franchise)#Films", "tt0091474", "tt0102926", "tt0212985", "tt0289765", "tt0367959" } },
                 { "Harry Potter", new List<string>() { "https://en.wikipedia.org/wiki/Harry_Potter_(film_series)#Films", "tt0241527", "tt0295297", "tt0304141", "tt0330373", "tt0373889", "tt0417741", "tt0926084", "tt1201607" } },
@@ -78,6 +79,7 @@ namespace GetImdbFilmFranchiseData
                 { "Texas Chainsaw Massacre", new List<string>() { "https://en.wikipedia.org/wiki/The_Texas_Chainsaw_Massacre_(franchise)#Films", "tt0072271", "tt0092076", "tt0099994", "tt0110978", "tt0324216", "tt0420294", "tt1572315", "tt2620590", "tt11755740" } },
                 { "Toy Story", new List<string>() { "https://en.wikipedia.org/wiki/Toy_Story_(franchise)#Main_films", "tt0114709", "tt0120363", "tt0435761", "tt1979376" } },
                 { "Transformers", new List<string>() { "https://en.wikipedia.org/wiki/Transformers_(film_series)#Films", "tt0418279", "tt1055369", "tt1399103", "tt2109248", "tt3371366", "tt4701182" } },
+                { "Tremors", new List<string>() { "https://en.wikipedia.org/wiki/Tremors_(franchise)#Films", "tt0100814", "tt0114720", "tt0259685", "tt0334541", "tt4180514", "tt6086082", "tt8322060" } },
                 { "Twilight", new List<string>() { "https://en.wikipedia.org/wiki/The_Twilight_Saga_(film_series)#Films", "tt1099212", "tt1259571", "tt1325004", "tt1324999", "tt1673434" } },
                 { "X-Men", new List<string>() { "https://en.wikipedia.org/wiki/X-Men_(film_series)#Films", "tt0120903", "tt0290334", "tt0376994", "tt0458525", "tt1270798", "tt1430132", "tt1877832", "tt1431045", "tt3385516", "tt3315342", "tt5463162", "tt6565702", "tt4682266" } }
             };
