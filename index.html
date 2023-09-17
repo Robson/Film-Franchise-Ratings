@@ -8,25 +8,25 @@
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
 		  gtag('config', 'G-2E561F2422');
-		</script>	
+		</script>
 		<!--
 		************************************************
 		The script above is for google analytics.
 		You'll want to remove that if you use this page.
 		************************************************
-		-->	
-		<title>Film Franchise Ratings</title>		
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		-->
+		<title>Film Franchise Ratings</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="https://d3js.org/d3.v3.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/regression/2.0.1/regression.min.js" integrity="sha512-0k6FXllQktdobw8Nc8KQN2WtZrOuxpMn7jC2RKCF6LR7EdOhhrg3H5cBPxhs3CFzQVlO6ni1B9SDLUPhBs0Alg==" crossorigin="anonymous"></script>
 		<script src="data.js"></script>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 		<link rel="preconnect" href="https://fonts.gstatic.com">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&display=swap"> 		
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap"> 	
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik&display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap">
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 		<div class="page-header-container">
@@ -54,36 +54,36 @@
 						Franchise Order:
 					</span>
 					<select id="controls_order">
-						<option value="alphabetical">Alphabetical</option>					
+						<option value="alphabetical">Alphabetical</option>
 						<option value="" disabled>----------</option>
 						<option value="imdb_rating_first_film">First film: IMDb rating</option>
 						<option value="imdb_votes_first_film">First film: IMDb vote count</option>
 						<option value="metacritic_rating_first_film">First film: Metacritic rating</option>
 						<option value="release_date">First film: Release date</option>
 						<option value="" disabled>----------</option>
-						<option value="imdb_rating_average_film">Average film: IMDb rating</option>						
-						<option value="imdb_votes_average_film">Average film: IMDb vote count</option>						
-						<option value="metacritic_rating_average_film">Average film: Metacritic rating</option>												
+						<option value="imdb_rating_average_film">Average film: IMDb rating</option>
+						<option value="imdb_votes_average_film">Average film: IMDb vote count</option>
+						<option value="metacritic_rating_average_film">Average film: Metacritic rating</option>
 						<option value="" disabled>----------</option>
 						<option value="imdb_trend">All films: IMDb rating trend</option>
 						<option value="metacritic_trend">All films: Metacritic rating trend</option>
-						<option value="amount">All films: Count</option>							
-					</select>		
-				<p>		
+						<option value="amount">All films: Count</option>
+					</select>
+				<p>
 				<p>
 					<span class="label">
 						Rating:
 					</span>
 					<select id="controls_rating">
 						<option value="imdb">IMDb</option>
-						<option value="metacritic">Metacritic</option>					
+						<option value="metacritic">Metacritic</option>
 					</select>
-				<p>		
+				<p>
 			</div>
-		</div>			
+		</div>
 		<div id="tt" style="display: none">
 			<p id="tooltip_title"></p>
-			<p><img id="tooltip_thumb" alt="Film Poster" src="none.png" /></p>			
+			<p><img id="tooltip_thumb" alt="Film Poster" src="none.png"></p>
 			<p id="tooltip_stats"></p>
 		</div>
 		<div class="container">
@@ -91,49 +91,49 @@
 			</div>
 		</div>
 		<script>
-		
+
 			var isTouchDevice = ('ontouchstart' in document.documentElement);
-			
+
 			if (isTouchDevice) {
 				//d3.select('#franchise_order_controls').style('display', 'none');
 			}
-		
+
 			////////////////// CONTROLS //////////////////
-			
+
 			var selectedFilter = 'all';
 			var selectedOrder = 'alphabetical';
 			var selectedRating = 'imdb';
 			var sortedFilms;
-			
+
 			d3.select('#controls_filter').on('change', function() {
 				selectedFilter = d3.select(this).property('value');
 				showCharts();
 			});
-			
+
 			d3.select('#controls_order').on('change', function() {
 				selectedOrder = d3.select(this).property('value');
 				showCharts();
-			});	
+			});
 
 			d3.select('#controls_rating').on('change', function() {
 				selectedRating = d3.select(this).property('value');
 				showCharts();
 			});
-		
+
 			////////////////// TOOLTIPS //////////////////
 
 			var tt = d3.select('#tt');
-			
+
 			tt.on('mousedown', function() { tt.style('display', 'none'); });
-			
+
 			function setTooltipFranchise(franchise) {
 				d3.select('#tooltip_thumb').style('display', 'none');
 				tt.classed('franchise', true);
 				tt.classed('film', false);
 				var films = sortedFilms[franchise].Films;
 				var info = films.length + ' films from ' + films[0].Year + ' to ' + films[films.length-1].Year;
-				d3.select('#tooltip_title').attr('class', 'title').html(sortedFilms[franchise].Name);				
-				d3.selectAll('#tooltip_stats *').remove();				
+				d3.select('#tooltip_title').attr('class', 'title').html(sortedFilms[franchise].Name);
+				d3.selectAll('#tooltip_stats *').remove();
 				d3.select('#tooltip_stats').append('p').html(info);
 				d3.select('#tooltip_stats').append('p').attr('class', 'title').html('IMDb');
 				var table = d3.select('#tooltip_stats').append('table');
@@ -142,22 +142,22 @@
 				row.append('td').html(getFranchiseStat(films, 'imdb_average').toFixed(1));
 				row = table.append('tr');
 				row.append('th').html('Average Votes:');
-				row.append('td').html((getFranchiseStat(films, 'imdb_average_votes') / 1000).toFixed(0) + 'K');	
+				row.append('td').html((getFranchiseStat(films, 'imdb_average_votes') / 1000).toFixed(0) + 'K');
 				row = table.append('tr');
 				row.append('th').html('Rating Trend:');
 				var trend = getFranchiseStat(films, 'imdb_trend').toFixed(1);
-				row.append('td').html(trend > 0 ? '+' + trend : trend);				
+				row.append('td').html(trend > 0 ? '+' + trend : trend);
 				d3.select('#tooltip_stats').append('p').attr('class', 'title').html('Metacritic');
 				table = d3.select('#tooltip_stats').append('table');
 				row = table.append('tr');
 				row.append('th').html('Average Rating:');
-				row.append('td').html(getFranchiseStat(films, 'metacritic_average').toFixed(0));				
+				row.append('td').html(getFranchiseStat(films, 'metacritic_average').toFixed(0));
 				row = table.append('tr');
 				row.append('th').html('Rating Trend:');
 				trend = getFranchiseStat(films, 'metacritic_trend').toFixed(1);
-				row.append('td').html(trend > 0 ? '+' + trend : trend);					
+				row.append('td').html(trend > 0 ? '+' + trend : trend);
 			}
-			
+
 			function setTooltipFilm(franchise, filmIndex) {
 				d3.select('#tooltip_thumb').style('display', null);
 				tt.classed('franchise', false);
@@ -174,11 +174,11 @@
 				row.append('td').html(film.Metascore || 'NA');
 				row = table.append('tr');
 				row.append('th').html('IMDb:');
-				row.append('td').html(film.Rating.toFixed(1));				
+				row.append('td').html(film.Rating.toFixed(1));
 				row.append('th').html('IMDb Votes:').attr('class', 'second');
-				row.append('td').html(Math.round(film.Votes / 1000, 0) + 'K');								
+				row.append('td').html(Math.round(film.Votes / 1000, 0) + 'K');
 			}
-			
+
 			function setTooltip(i) {
 				var franchise = d3.selectAll('.ttt')[0][i].attributes['data-franchise'].value;
 				var film = d3.selectAll('.ttt')[0][i].attributes['data-film'];
@@ -186,7 +186,7 @@
 					setTooltipFranchise(franchise);
 				} else {
 					setTooltipFilm(franchise, film.value);
-				}			
+				}
 			}
 
 			function createTooltipTriggers() {
@@ -196,7 +196,7 @@
 					})
 					.on("mouseout", function() {
 						tt.style('display', 'none');
-					})		
+					})
 					.on("mousemove", function(d, i) {
 						if (isTouchDevice) {
 							setTooltip(i);
@@ -214,9 +214,9 @@
 						}
 					});
 			}
-		
+
 			////////////////// CHARTS //////////////////
-			
+
 			function getFranchiseStat(franchise, stat) {
 				switch (stat) {
 					case 'imdb_average':
@@ -244,13 +244,13 @@
 								sequenceMT.push([sequenceMT.length, +franchise[j].Metascore]);
 							}
 						}
-						return regression.linear(sequenceMT).equation[0];						
+						return regression.linear(sequenceMT).equation[0];
 				}
 			}
-			
+
 			function showCharts() {
 				d3.selectAll('.row *').remove();
-				var charts = d3.select('.row');				
+				var charts = d3.select('.row');
 				sortedFilms = data.slice(0);
 				switch (selectedFilter) {
 					case 'recentfilm':
@@ -258,7 +258,7 @@
 						break;
 					case 'start1940s':
 						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1940 && a.Films[0].Year < 1950);
-						break;				
+						break;
 					case 'start1950s':
 						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 1950 && a.Films[0].Year < 1960);
 						break;
@@ -279,33 +279,33 @@
 						break;
 					case 'start2010s':
 						sortedFilms = sortedFilms.filter(a => a.Films[0].Year >= 2010 && a.Films[0].Year < 2020);
-						break;						
+						break;
 				}
-				switch (selectedOrder) {			
+				switch (selectedOrder) {
 					case 'imdb_rating_first_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return b.Films[0].Rating - a.Films[0].Rating; });
 						break;
 					case 'imdb_votes_first_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return b.Films[0].Votes - a.Films[0].Votes; });
-						break;						
+						break;
 					case 'imdb_rating_average_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_average') - getFranchiseStat(a.Films, 'imdb_average'); });
 						break;
 					case 'imdb_votes_average_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_average_votes') - getFranchiseStat(a.Films, 'imdb_average_votes'); });
-						break;						
+						break;
 					case 'metacritic_rating_first_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return +b.Films[0].Metascore - +a.Films[0].Metascore; });
-						break;						
+						break;
 					case 'metacritic_rating_average_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'metacritic_average') - getFranchiseStat(a.Films, 'metacritic_average'); });
 						break;
 					case 'release_date':
 						sortedFilms = sortedFilms.sort(function(a, b) { return a.Films[0].Year - b.Films[0].Year; });
-						break;						
+						break;
 					case 'imdb_trend':
 						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_trend') - getFranchiseStat(a.Films, 'imdb_trend'); });
-						break;						
+						break;
 					case 'metacritic_trend':
 						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'metacritic_trend') - getFranchiseStat(a.Films, 'metacritic_trend'); });
 						break;
@@ -335,7 +335,7 @@
 							.attr('data-film', j)
 							.append('a');
 						if (!isTouchDevice)
-							row = row								
+							row = row
 								.attr('href', 'https://imdb.com/title/' + film.Id)
 								.attr('target', '_blank');
 						row
@@ -343,19 +343,19 @@
 							.attr('class', 'bar')
 							.style('height', (selectedRating == 'imdb' ? (10 - film.Rating) * 10 : 100 - film.Metascore || 100) + '%');
 					}
-				}				
+				}
 				createTooltipTriggers();
 			}
-			
+
 			document.getElementById('controls_filter').value = 'all';
 			document.getElementById('controls_order').value = 'alphabetical';
-			document.getElementById('controls_rating').value = 'imdb';			
+			document.getElementById('controls_rating').value = 'imdb';
 			showCharts();
-			
+
 		</script>
 		<div id="about">
 			<p>Written by <a href="https://robson.plus">Robson</a> and <a href="https://github.com/Robson/Film-Franchise-Ratings/graphs/contributors">contributers</a>.
-			<br/>Want to suggest a franchise or improve this page? <a href="https://github.com/Robson/Film-Franchise-Ratings">Here's the code</a>.<br/>Last updated on 6 January 2023.</p>
-		</div>	
+			<br>Want to suggest a franchise or improve this page? <a href="https://github.com/Robson/Film-Franchise-Ratings">Here's the code</a>.<br>Last updated on 6 January 2023.</p>
+		</div>
 	</body>
 </html>
