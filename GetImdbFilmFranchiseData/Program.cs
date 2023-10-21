@@ -65,7 +65,7 @@ namespace GetImdbFilmFranchiseData
             {
                 Id = id,
                 Year = int.Parse(Regex.Match(html, "(\\d{4})\\) - IMDb</title>").Groups[1].Value),
-                Name = Regex.Match(html, "<h1[^>]*>([^<]+)").Groups[1].Value.Replace("&nbsp;", " ").Trim(),
+                Name = Regex.Match(html, "<title>([^<]+)( \\(\\d{4})\\) - IMDb</title>").Groups[1].Value.Replace("&nbsp;", " ").Replace("&#x27;", "'").Trim(),
                 Rating = decimal.Parse(Regex.Match(html, "aggregateRating.*,\"ratingValue\":([\\d\\.]+)\\}").Groups[1].Value),
                 Votes = int.Parse(Regex.Match(html, ",\"ratingCount\":(\\d+),").Groups[1].Value.Replace(",", string.Empty)),
                 Metascore = Regex.Match(html, "{\"metascore\":{\"score\":([\\d+]+),\"").Groups[1].Value,
