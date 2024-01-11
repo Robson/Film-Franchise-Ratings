@@ -17,6 +17,7 @@ namespace GetImdbFilmFranchiseData
     using System.Net;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Threading;
     using Newtonsoft.Json;
 
     internal class Program
@@ -49,11 +50,29 @@ namespace GetImdbFilmFranchiseData
 
             foreach (var id in ids.Skip(1))
             {
-                var bytes = Client.DownloadData("https://www.imdb.com/title/" + id);
-                var html = Encoding.UTF8.GetString(bytes).Replace("\n", string.Empty);
-                var film = GetFilmData(html, id);
-                series.Films.Add(film);                
-                Console.WriteLine('\t' + film.Name); // show progress
+                bool success;
+                do
+                {
+                    success = false;
+                    try
+                    {
+                        var bytes = Client.DownloadData("https://www.imdb.com/title/" + id);
+                        var html = Encoding.UTF8.GetString(bytes).Replace("\n", string.Empty);
+                        var film = GetFilmData(html, id);
+                        if (film.Name.Length == 0)
+                        {
+                            throw new ArgumentException("Could not find the film name.");
+                        }
+                        series.Films.Add(film);
+                        Console.WriteLine('\t' + film.Name.PadRight(60) + film.Year + ' ' + string.Format("{0:0.0}", film.Rating) + ' ' + film.Metascore); // show progress
+                        success = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("\t!Error with " + id + "! Will retry in 1 minute. [" + ex.Message + "]");
+                        Thread.Sleep(60000);
+                    }
+                } while (!success);
             }
 
             File.AppendAllText(Filename, JsonConvert.SerializeObject(series, Formatting.Indented) + ",\n", Encoding.Unicode);
@@ -61,11 +80,14 @@ namespace GetImdbFilmFranchiseData
 
         private static Series.Film GetFilmData(string html, string id)
         {
+            // <title>&quot;The Wonderful World of Disney&quot; Home Alone 4: Taking Back the House (TV Episode 2002) - IMDb</title>
+            var nom = Regex.Match(html, "<title>([^<]+)( \\([a-zA-Z ]*\\d{4})\\) - IMDb</title>").Groups[1].Value.Replace("&nbsp;", " ").Replace("&#x27;", "'").Trim();
+
             return new Series.Film()
             {
                 Id = id,
                 Year = int.Parse(Regex.Match(html, "(\\d{4})\\) - IMDb</title>").Groups[1].Value),
-                Name = Regex.Match(html, "<title>([^<]+)( \\(\\d{4})\\) - IMDb</title>").Groups[1].Value.Replace("&nbsp;", " ").Replace("&#x27;", "'").Trim(),
+                Name = nom,
                 Rating = decimal.Parse(Regex.Match(html, "aggregateRating.*,\"ratingValue\":([\\d\\.]+)\\}").Groups[1].Value),
                 Votes = int.Parse(Regex.Match(html, ",\"ratingCount\":(\\d+),").Groups[1].Value.Replace(",", string.Empty)),
                 Metascore = Regex.Match(html, "{\"metascore\":{\"score\":([\\d+]+),\"").Groups[1].Value,
