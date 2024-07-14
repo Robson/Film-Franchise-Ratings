@@ -31,7 +31,7 @@
 	<body>
 		<div class="page-header-container">
 			<h1>
-				Film Franchise Ratings
+				Film Franchise R<span onclick="javascript:openAllWikipediaLinks()">a</span>tings
 			</h1>
 			<div id="controls">
 				<p>
@@ -91,6 +91,13 @@
 			</div>
 		</div>
 		<script>
+
+			function openAllWikipediaLinks() {
+				sortedFilms = data.slice(0);
+				for(var i = 0; i < sortedFilms.length; i++) {
+					window.open(sortedFilms[i].Wikipedia, '_blank');
+				}
+			}
 
 			var isTouchDevice = ('ontouchstart' in document.documentElement);
 
@@ -355,7 +362,7 @@
 		</script>
 		<div id="about">
 			<p>Written by <a href="https://robson.plus">Robson</a> and <a href="https://github.com/Robson/Film-Franchise-Ratings/graphs/contributors">contributers</a>.
-			<br>Want to suggest a franchise or improve this page? <a href="https://github.com/Robson/Film-Franchise-Ratings">Here's the code</a>.<br>Last updated on 21st October 2023.</p>
+			<br>Want to suggest a franchise or improve this page? <a href="https://github.com/Robson/Film-Franchise-Ratings">Here's the code</a>.<br>Last updated on 15th July 2024.</p>
 		</div>
 	</body>
 </html>
