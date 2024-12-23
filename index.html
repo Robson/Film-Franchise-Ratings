@@ -56,16 +56,19 @@
 					<select id="controls_order">
 						<option value="alphabetical">Alphabetical</option>
 						<option value="" disabled>----------</option>
-						<option value="imdb_rating_first_film">First film: IMDb rating</option>
-						<option value="imdb_votes_first_film">First film: IMDb vote count</option>
-						<option value="metacritic_rating_first_film">First film: Metacritic rating</option>
 						<option value="release_date">First film: Release date</option>
+						<option value="imdb_votes_first_film">First film: IMDb vote count</option>
+						<option value="imdb_rating_first_film">First film: IMDb rating</option>
+						<option value="letterboxd_rating_first_film">First film: Letterboxd rating</option>
+						<option value="metacritic_rating_first_film">First film: Metacritic rating</option>
 						<option value="" disabled>----------</option>
-						<option value="imdb_rating_average_film">Average film: IMDb rating</option>
 						<option value="imdb_votes_average_film">Average film: IMDb vote count</option>
+						<option value="imdb_rating_average_film">Average film: IMDb rating</option>
+						<option value="letterboxd_rating_average_film">Average film: Letterboxd rating</option>
 						<option value="metacritic_rating_average_film">Average film: Metacritic rating</option>
 						<option value="" disabled>----------</option>
 						<option value="imdb_trend">All films: IMDb rating trend</option>
+						<option value="letterboxd_trend">All films: Letterboxd rating trend</option>
 						<option value="metacritic_trend">All films: Metacritic rating trend</option>
 						<option value="amount">All films: Count</option>
 					</select>
@@ -76,6 +79,7 @@
 					</span>
 					<select id="controls_rating">
 						<option value="imdb">IMDb</option>
+						<option value="letterboxd">Letterboxd</option>
 						<option value="metacritic">Metacritic</option>
 					</select>
 				<p>
@@ -142,27 +146,24 @@
 				d3.select('#tooltip_title').attr('class', 'title').html(sortedFilms[franchise].Name);
 				d3.selectAll('#tooltip_stats *').remove();
 				d3.select('#tooltip_stats').append('p').html(info);
+
 				d3.select('#tooltip_stats').append('p').attr('class', 'title').html('IMDb');
 				var table = d3.select('#tooltip_stats').append('table');
-				row = table.append('tr');
-				row.append('th').html('Average Rating:');
-				row.append('td').html(getFranchiseStat(films, 'imdb_average').toFixed(1));
-				row = table.append('tr');
-				row.append('th').html('Average Votes:');
-				row.append('td').html((getFranchiseStat(films, 'imdb_average_votes') / 1000).toFixed(0) + 'K');
-				row = table.append('tr');
-				row.append('th').html('Rating Trend:');
 				var trend = getFranchiseStat(films, 'imdb_trend').toFixed(1);
-				row.append('td').html(trend > 0 ? '+' + trend : trend);
+				row = table.append('tr');
+				row.append('td').html('Rating Avg: ' + getFranchiseStat(films, 'imdb_average').toFixed(1) + '/10 ◆ Trend: ' + (trend > 0 ? '+' + trend : trend));
+
+				d3.select('#tooltip_stats').append('p').attr('class', 'title').html('Letterboxd');
+				table = d3.select('#tooltip_stats').append('table');
+				row = table.append('tr');
+				trend = getFranchiseStat(films, 'letterboxd_trend').toFixed(1);
+				row.append('td').html('Rating Avg: ' + getFranchiseStat(films, 'letterboxd_average').toFixed(1) + '/5 ◆ Trend: ' + (trend > 0 ? '+' + trend : trend));
+
 				d3.select('#tooltip_stats').append('p').attr('class', 'title').html('Metacritic');
 				table = d3.select('#tooltip_stats').append('table');
 				row = table.append('tr');
-				row.append('th').html('Average Rating:');
-				row.append('td').html(getFranchiseStat(films, 'metacritic_average').toFixed(0));
-				row = table.append('tr');
-				row.append('th').html('Rating Trend:');
-				trend = getFranchiseStat(films, 'metacritic_trend').toFixed(1);
-				row.append('td').html(trend > 0 ? '+' + trend : trend);
+				trend = getFranchiseStat(films, 'metacritic_trend').toFixed(0);
+				row.append('td').html('Rating Avg: ' + getFranchiseStat(films, 'metacritic_average').toFixed(0) + '% ◆ Trend: ' + (trend > 0 ? '+' + trend : trend) + '%');
 			}
 
 			function setTooltipFilm(franchise, filmIndex) {
@@ -177,13 +178,15 @@
 				var row = table.append('tr');
 				row.append('th').html('Year:');
 				row.append('td').html(film.Year);
-				row.append('th').html('Metacritic:').attr('class', 'second');
-				row.append('td').html(film.Metascore || 'NA');
+				row.append('th').html('Letterboxd:');
+				row.append('td').html(film.Letterboxd > 0 ? (film.Letterboxd.toFixed(2) + '/5') : 'NA');
 				row = table.append('tr');
 				row.append('th').html('IMDb:');
-				row.append('td').html(film.Rating.toFixed(1));
-				row.append('th').html('IMDb Votes:').attr('class', 'second');
-				row.append('td').html(Math.round(film.Votes / 1000, 0) + 'K');
+				row.append('td').html(film.Rating.toFixed(1) + '/10');
+				row.append('th').html('Metacritic:').attr('class', 'second');
+				row.append('td').html(film.Metascore ? (film.Metascore + '%') : 'NA');
+				//row.append('th').html('IMDb Votes:').attr('class', 'second');
+				//row.append('td').html(Math.round(film.Votes / 1000, 0) + 'K');
 			}
 
 			function setTooltip(i) {
@@ -230,6 +233,10 @@
 						var sumIA = franchise.reduce((a, b) => a + b.Rating, 0);
 						var countIA = franchise.length;
 						return sumIA / countIA;
+					case 'letterboxd_average':
+						var sumLB = franchise.reduce((a, b) => a + +b.Letterboxd, 0);
+						var countLB = franchise.filter(a => +a.Letterboxd > 0).length;
+						return sumLB / countLB;
 					case 'metacritic_average':
 						var sumMA = franchise.reduce((a, b) => a + +b.Metascore, 0);
 						var countMA = franchise.filter(a => +a.Metascore > 0).length;
@@ -244,6 +251,14 @@
 							sequenceIT.push([i, franchise[i].Rating]);
 						}
 						return regression.linear(sequenceIT).equation[0];
+					case 'letterboxd_trend':
+						var sequenceLB = [];
+						for (var j = 0; j < franchise.length; j++) {
+							if (+franchise[j].Letterboxd > 0) {
+								sequenceLB.push([sequenceLB.length, +franchise[j].Letterboxd]);
+							}
+						}
+						return regression.linear(sequenceLB).equation[0];
 					case 'metacritic_trend':
 						var sequenceMT = [];
 						for (var j = 0; j < franchise.length; j++) {
@@ -292,26 +307,35 @@
 					case 'imdb_rating_first_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return b.Films[0].Rating - a.Films[0].Rating; });
 						break;
+					case 'letterboxd_rating_first_film':
+						sortedFilms = sortedFilms.sort(function(a, b) { return +b.Films[0].Letterboxd - +a.Films[0].Letterboxd; });
+						break;
+					case 'metacritic_rating_first_film':
+						sortedFilms = sortedFilms.sort(function(a, b) { return +b.Films[0].Metascore - +a.Films[0].Metascore; });
+						break;
 					case 'imdb_votes_first_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return b.Films[0].Votes - a.Films[0].Votes; });
 						break;
 					case 'imdb_rating_average_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_average') - getFranchiseStat(a.Films, 'imdb_average'); });
 						break;
-					case 'imdb_votes_average_film':
-						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_average_votes') - getFranchiseStat(a.Films, 'imdb_average_votes'); });
-						break;
-					case 'metacritic_rating_first_film':
-						sortedFilms = sortedFilms.sort(function(a, b) { return +b.Films[0].Metascore - +a.Films[0].Metascore; });
+					case 'letterboxd_rating_average_film':
+						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'letterboxd_average') - getFranchiseStat(a.Films, 'letterboxd_average'); });
 						break;
 					case 'metacritic_rating_average_film':
 						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'metacritic_average') - getFranchiseStat(a.Films, 'metacritic_average'); });
+						break;
+					case 'imdb_votes_average_film':
+						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_average_votes') - getFranchiseStat(a.Films, 'imdb_average_votes'); });
 						break;
 					case 'release_date':
 						sortedFilms = sortedFilms.sort(function(a, b) { return a.Films[0].Year - b.Films[0].Year; });
 						break;
 					case 'imdb_trend':
 						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'imdb_trend') - getFranchiseStat(a.Films, 'imdb_trend'); });
+						break;
+					case 'letterboxd_trend':
+						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'letterboxd_trend') - getFranchiseStat(a.Films, 'letterboxd_trend'); });
 						break;
 					case 'metacritic_trend':
 						sortedFilms = sortedFilms.sort(function(a, b) { return getFranchiseStat(b.Films, 'metacritic_trend') - getFranchiseStat(a.Films, 'metacritic_trend'); });
@@ -343,12 +367,24 @@
 							.append('a');
 						if (!isTouchDevice)
 							row = row
-								.attr('href', 'https://imdb.com/title/' + film.Id)
+								.attr('href', (selectedRating == 'letterboxd' ? 'https://letterboxd.com/imdb/' : 'https://imdb.com/title/') + film.Id)
 								.attr('target', '_blank');
+						var distance = 0;
+						switch (selectedRating) {
+							case 'imdb':
+								distance = (10 - film.Rating) * 10;
+								break;
+							case 'letterboxd':
+								distance = film.Letterboxd == 0 ? 100 : ((5 - film.Letterboxd) * 20);
+								break;
+							case 'metacritic':
+								distance = 100 - film.Metascore || 100;
+								break;
+						}
 						row
 							.append('span')
 							.attr('class', 'bar')
-							.style('height', (selectedRating == 'imdb' ? (10 - film.Rating) * 10 : 100 - film.Metascore || 100) + '%');
+							.style('height', distance + '%');
 					}
 				}
 				createTooltipTriggers();
