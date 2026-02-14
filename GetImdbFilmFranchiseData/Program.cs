@@ -11,7 +11,7 @@
 namespace GetImdbFilmFranchiseData
 {
     using System;
-    using System.Collections.Generic;    
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -27,10 +27,15 @@ namespace GetImdbFilmFranchiseData
     {
         private const string Filename = "data.js";
 
-        private static readonly WebClient Client = new WebClient();       
+        private static readonly WebClient Client = new WebClient();
+        private static HttpClient client = new HttpClient();
 
         internal static void Main()
         {
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.90 Safari/537.36");
+            client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+            client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.9");
+
             System.IO.File.WriteAllText(Filename, "var data = [" + Environment.NewLine, Encoding.Unicode);
 
             foreach (var franchise in Franchises.GetAllFranchises())
@@ -59,15 +64,17 @@ namespace GetImdbFilmFranchiseData
                     success = false;
                     try
                     {
-                        var bytes = Client.DownloadData("https://www.imdb.com/title/" + id);
-                        var html = Encoding.UTF8.GetString(bytes).Replace("\n", string.Empty);
+                        //var bytes = Client.DownloadData("https://www.imdb.com/title/" + id);
+                        //var html = Encoding.UTF8.GetString(bytes).Replace("\n", string.Empty);
+                        var response = client.GetAsync("https://www.imdb.com/title/" + id).Result;
+                        var html = response.Content.ReadAsStringAsync().Result;
                         var film = GetFilmData(html, id);
                         if (film.Name.Length == 0)
                         {
                             throw new ArgumentException("Could not find the film name.");
                         }
                         series.Films.Add(film);
-                        Console.WriteLine('\t' + film.Name.PadRight(60) + film.Year + ' ' + string.Format("{0:0.0}", film.Rating) + ' ' + film.Metascore); // show progress
+                        Console.WriteLine('\t' + film.Name.PadRight(60) + film.Year + " IMDb" + string.Format("{0:0.0}", film.Rating) + " LB" + string.Format("{0:0.00}", film.Letterboxd) + " MC" + film.Metascore); // show progress
                         success = true;
                     }
                     catch (Exception ex)
@@ -97,12 +104,17 @@ namespace GetImdbFilmFranchiseData
                 Poster = Regex.Match(html, "<img alt=\"[^\"]+\" class=\"ipc-image\" loading=\"eager\" src=\"([^\"]+)\"").Groups[1].Value,
             };
 
-            var bytesLetterboxd = Client.DownloadData("https://letterboxd.com/imdb/" + id);
-            var htmlLetterboxd = Encoding.UTF8.GetString(bytesLetterboxd).Replace("\n", string.Empty);
-            if (Regex.Match(htmlLetterboxd, @"""([\d\.]+) out of 5").Success)
-            {
-                data.Letterboxd = decimal.Parse(Regex.Match(htmlLetterboxd, @"""([\d\.]+) out of 5").Groups[1].Value);
-            }
+            //var bytesLetterboxd = Client.DownloadData("https://letterboxd.com/imdb/" + id);
+            //var htmlLetterboxd = Encoding.UTF8.GetString(bytesLetterboxd).Replace("\n", string.Empty);
+            //var bytesLetterboxd = client.GetAsync("https://letterboxd.com/imdb/" + id).Result;
+            //var htmlLetterboxd = bytesLetterboxd.Content.ReadAsStringAsync().Result.Replace("\n", string.Empty);
+
+            //System.IO.File.WriteAllText("letterboxd_" + id + ".html", htmlLetterboxd); // for debugging)
+
+            //if (Regex.Match(htmlLetterboxd, @"""([\d\.]+) out of 5").Success)
+            //{
+            //    data.Letterboxd = decimal.Parse(Regex.Match(htmlLetterboxd, @"""([\d\.]+) out of 5").Groups[1].Value);
+            //}
 
             return data;
         }
@@ -134,5 +146,5 @@ namespace GetImdbFilmFranchiseData
                 public string Poster { get; set; }
             }
         }
-    }    
+    }
 }

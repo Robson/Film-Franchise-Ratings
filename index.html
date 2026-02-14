@@ -59,16 +59,16 @@
 						<option value="release_date">First film: Release date</option>
 						<option value="imdb_votes_first_film">First film: IMDb vote count</option>
 						<option value="imdb_rating_first_film">First film: IMDb rating</option>
-						<option value="letterboxd_rating_first_film">First film: Letterboxd rating</option>
+						<!--<option value="letterboxd_rating_first_film">First film: Letterboxd rating</option>-->
 						<option value="metacritic_rating_first_film">First film: Metacritic rating</option>
 						<option value="" disabled>----------</option>
 						<option value="imdb_votes_average_film">Average film: IMDb vote count</option>
 						<option value="imdb_rating_average_film">Average film: IMDb rating</option>
-						<option value="letterboxd_rating_average_film">Average film: Letterboxd rating</option>
+						<!--<option value="letterboxd_rating_average_film">Average film: Letterboxd rating</option>-->
 						<option value="metacritic_rating_average_film">Average film: Metacritic rating</option>
 						<option value="" disabled>----------</option>
 						<option value="imdb_trend">All films: IMDb rating trend</option>
-						<option value="letterboxd_trend">All films: Letterboxd rating trend</option>
+						<!--<option value="letterboxd_trend">All films: Letterboxd rating trend</option>-->
 						<option value="metacritic_trend">All films: Metacritic rating trend</option>
 						<option value="amount">All films: Count</option>
 					</select>
@@ -79,7 +79,7 @@
 					</span>
 					<select id="controls_rating">
 						<option value="imdb">IMDb</option>
-						<option value="letterboxd">Letterboxd</option>
+						<!--<option value="letterboxd">Letterboxd</option>-->
 						<option value="metacritic">Metacritic</option>
 					</select>
 				<p>
@@ -153,11 +153,13 @@
 				row = table.append('tr');
 				row.append('td').html('Rating Avg: ' + getFranchiseStat(films, 'imdb_average').toFixed(1) + '/10 ◆ Trend: ' + (trend > 0 ? '+' + trend : trend));
 
+				/*
 				d3.select('#tooltip_stats').append('p').attr('class', 'title').html('Letterboxd');
 				table = d3.select('#tooltip_stats').append('table');
 				row = table.append('tr');
 				trend = getFranchiseStat(films, 'letterboxd_trend').toFixed(1);
 				row.append('td').html('Rating Avg: ' + getFranchiseStat(films, 'letterboxd_average').toFixed(1) + '/5 ◆ Trend: ' + (trend > 0 ? '+' + trend : trend));
+				*/
 
 				d3.select('#tooltip_stats').append('p').attr('class', 'title').html('Metacritic');
 				table = d3.select('#tooltip_stats').append('table');
@@ -171,16 +173,17 @@
 				tt.classed('franchise', false);
 				tt.classed('film', true);
 				var film = sortedFilms[franchise].Films[filmIndex];
-				d3.select('#tooltip_thumb').attr('src', film.Poster);
 				d3.select('#tooltip_title').html(film.Name);
+				d3.select('#tooltip_thumb').attr('src', film.Poster);
 				d3.selectAll('#tooltip_stats *').remove();
+				d3.select('#tooltip_stats').append('p').html('Year: ' + film.Year);
 				var table = d3.select('#tooltip_stats').append('table');
 				var row = table.append('tr');
-				row.append('th').html('Year:');
-				row.append('td').html(film.Year);
-				row.append('th').html('Letterboxd:');
-				row.append('td').html(film.Letterboxd > 0 ? (film.Letterboxd.toFixed(2) + '/5') : 'NA');
-				row = table.append('tr');
+				//row.append('th').html('Year:');
+				//row.append('td').html(film.Year);
+				//row.append('th').html('Letterboxd:');
+				//row.append('td').html(film.Letterboxd > 0 ? (film.Letterboxd.toFixed(2) + '/5') : 'NA');
+				//row = table.append('tr');
 				row.append('th').html('IMDb:');
 				row.append('td').html(film.Rating.toFixed(1) + '/10');
 				row.append('th').html('Metacritic:').attr('class', 'second');
@@ -398,7 +401,7 @@
 		</script>
 		<div id="about">
 			<p>Written by <a href="https://robson.plus">Robson</a> and <a href="https://github.com/Robson/Film-Franchise-Ratings/graphs/contributors">contributers</a>.
-			<br>Want to suggest a franchise or improve this page? <a href="https://github.com/Robson/Film-Franchise-Ratings">Here's the code</a>.<br>Last updated on 27th January 2025.</p>
+			<br>Want to suggest a franchise or improve this page? <a href="https://github.com/Robson/Film-Franchise-Ratings">Here's the code</a>.<br>Updated annually. Franchises are updated to the end of 2025.</p>
 		</div>
 	</body>
 </html>
